@@ -43,10 +43,17 @@ const Page2 = ({ minMargin, onBack }) => {
     setBottomReverse(prev => applyDelta(prev, val));
   };
 
-  // 나머지 계산
-  const getRemainder = (val) => {
+  // 나머지 계산 (Reverse인 경우 배수와의 차이 계산)
+  const getRemainder = (val, isReverse) => {
     if (val === '' || reference === '' || isNaN(val) || isNaN(reference) || Number(reference) === 0) return null;
-    return Number(val) % Number(reference);
+    const numVal = Number(val);
+    const refVal = Number(reference);
+    
+    if (isReverse) {
+      const rem = numVal % refVal;
+      return rem === 0 ? 0 : refVal - rem;
+    }
+    return numVal % refVal;
   };
 
   // 색상 판별 클래스 (나머지가 minMargin보다 '크면' success, '작거나 같으면' error)
@@ -58,19 +65,27 @@ const Page2 = ({ minMargin, onBack }) => {
 
   // 전체 색상 동기화 (모든 유효 입력칸의 기준 충족 여부 확인)
   useEffect(() => {
-    const allArrays = [...topForward, ...topReverse, ...bottomForward, ...bottomReverse];
+    const arraysWithConfig = [
+      { arr: topForward, isReverse: false },
+      { arr: topReverse, isReverse: true },
+      { arr: bottomForward, isReverse: false },
+      { arr: bottomReverse, isReverse: true }
+    ];
     let hasValidInput = false;
     let hasError = false;
 
-    for (let val of allArrays) {
-      if (val !== '') {
-        hasValidInput = true;
-        const remainder = getRemainder(val);
-        if (remainder !== null && remainder <= minMargin) {
-          hasError = true;
-          break;
+    for (let { arr, isReverse } of arraysWithConfig) {
+      for (let val of arr) {
+        if (val !== '') {
+          hasValidInput = true;
+          const remainder = getRemainder(val, isReverse);
+          if (remainder !== null && remainder <= minMargin) {
+            hasError = true;
+            break;
+          }
         }
       }
+      if (hasError) break;
     }
 
     if (hasValidInput && !hasError && reference !== '' && Number(reference) !== 0) {
@@ -81,7 +96,7 @@ const Page2 = ({ minMargin, onBack }) => {
   }, [topForward, topReverse, bottomForward, bottomReverse, reference, minMargin]);
   
 
-  const renderInputRow = (arr, setter, title) => {
+  const renderInputRow = (arr, setter, title, isReverse) => {
     // 4개씩 분할해서 렌더링
     const rows = [];
     for (let i = 0; i < arr.length; i += 4) {
@@ -90,7 +105,7 @@ const Page2 = ({ minMargin, onBack }) => {
         <div className="input-row" key={`${title}-row-${i}`}>
           {chunk.map((val, idx) => {
             const actualIndex = i + idx;
-            const remainder = getRemainder(val);
+            const remainder = getRemainder(val, isReverse);
             const statusClass = getStatusClass(remainder);
             
             return (
@@ -136,8 +151,8 @@ const Page2 = ({ minMargin, onBack }) => {
 
       {/* 상단 그룹 */}
       <div className="group-wrapper top-group">
-        {renderInputRow(topForward, setTopForward, '정방향')}
-        {renderInputRow(topReverse, setTopReverse, 'Reverse')}
+        {renderInputRow(topForward, setTopForward, '정방향', false)}
+        {renderInputRow(topReverse, setTopReverse, 'Reverse', true)}
       </div>
 
       {/* 중앙 통제 영역 */}
@@ -170,8 +185,8 @@ const Page2 = ({ minMargin, onBack }) => {
 
       {/* 하단 그룹 */}
       <div className="group-wrapper bottom-group">
-        {renderInputRow(bottomForward, setBottomForward, '정방향')}
-        {renderInputRow(bottomReverse, setBottomReverse, 'Reverse')}
+        {renderInputRow(bottomForward, setBottomForward, '정방향', false)}
+        {renderInputRow(bottomReverse, setBottomReverse, 'Reverse', true)}
       </div>
 
     </div>
