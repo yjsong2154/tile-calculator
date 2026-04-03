@@ -9,6 +9,9 @@ const Page2 = ({ minMargin, onBack }) => {
   
   // 기준선 색상을 결정하기 위한 상태
   const [allPassed, setAllPassed] = useState(false);
+  
+  // +/- 누적 값 상태
+  const [adjustmentCounter, setAdjustmentCounter] = useState(0);
 
   // 배열 복사 유틸리티
   const copyArray = (arr) => [...arr];
@@ -25,22 +28,24 @@ const Page2 = ({ minMargin, onBack }) => {
     setter([...arr, '', '', '', '']);
   };
 
-  // 일괄 수치 변경 (위쪽 +, 아래쪽 -)
+  // 일괄 수치 변경 (위쪽 -, 아래쪽 +) - 요구사항에 맞춰 반전
   const handlePlusButton = (val) => {
-    const applyDelta = (arr, delta) => arr.map(item => item === '' ? '' : String(Number(item) + delta));
-    setTopForward(prev => applyDelta(prev, val));
-    setTopReverse(prev => applyDelta(prev, val));
-    setBottomForward(prev => applyDelta(prev, -val));
-    setBottomReverse(prev => applyDelta(prev, -val));
-  };
-
-  // 일괄 수치 변경 (위쪽 -, 아래쪽 +)
-  const handleMinusButton = (val) => {
     const applyDelta = (arr, delta) => arr.map(item => item === '' ? '' : String(Number(item) + delta));
     setTopForward(prev => applyDelta(prev, -val));
     setTopReverse(prev => applyDelta(prev, -val));
     setBottomForward(prev => applyDelta(prev, val));
     setBottomReverse(prev => applyDelta(prev, val));
+    setAdjustmentCounter(prev => prev + val);
+  };
+
+  // 일괄 수치 변경 (위쪽 +, 아래쪽 -) - 요구사항에 맞춰 반전
+  const handleMinusButton = (val) => {
+    const applyDelta = (arr, delta) => arr.map(item => item === '' ? '' : String(Number(item) + delta));
+    setTopForward(prev => applyDelta(prev, val));
+    setTopReverse(prev => applyDelta(prev, val));
+    setBottomForward(prev => applyDelta(prev, -val));
+    setBottomReverse(prev => applyDelta(prev, -val));
+    setAdjustmentCounter(prev => prev - val);
   };
 
   // 나머지 계산 (Reverse인 경우 배수와의 차이 계산)
@@ -165,6 +170,11 @@ const Page2 = ({ minMargin, onBack }) => {
             value={reference} 
             onChange={(e) => setReference(e.target.value)} 
           />
+          {adjustmentCounter !== 0 && (
+            <span className={`adjustment-counter ${allPassed ? 'status-success' : 'status-error'}`}>
+              {adjustmentCounter > 0 ? `+${adjustmentCounter}` : adjustmentCounter}
+            </span>
+          )}
         </div>
         <div className="control-divider">
           <div className="divider-line"></div>
