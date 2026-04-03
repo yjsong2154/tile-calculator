@@ -1,70 +1,33 @@
-# Getting Started with Create React App
+# 타일 마진 계산기 (Tile Margin Calculator)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+모바일 환경에 최적화된 타일 작업용 마진 계산 웹 애플리케이션입니다.
 
-## Available Scripts
+## 기능 소개
 
-In the project directory, you can run:
+이 애플리케이션은 2개의 페이지로 구성되어 있습니다.
 
-### `npm start`
+### 1. 설정 페이지 (Page 1)
+- **작업 기준(최소 마진) 설정**: 타일을 깔 때 여백이 충분히 남는지 기준이 되는 최소 마진값을 입력받습니다. 이 값은 이후 계산 페이지에서 마진의 여유 여부를 초록색(합격) 혹은 빨간색(불합격)으로 시각적으로 판별하는 기준이 됩니다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 2. 계산기 페이지 (Page 2)
+- **정방향 계산**: 입력된 값을 중앙의 '기준' 값으로 나눈 **나머지**를 계산합니다.
+- **Reverse 계산**: 입력된 값보다 큰 **가장 첫 번째 배수와의 차이**를 계산합니다 (예: 기준 10, 입력 43일 경우 50 - 43 = 7).
+- **시각적 판별**: 도출된 결과가 1페이지에서 입력한 최소 마진보다 크면 초록색(여백 충분)으로, 작거나 같으면 빨간색(여백 부족)으로 표시됩니다.
+- **일괄 변경 기능 (⊕/⊖)**: 
+  - 중앙 윗부분 ⊕ 버튼들 (+1, +5, +10) 클릭 시: 위쪽 그룹(정방향, Reverse) 수치 일괄 증가 / 아래쪽 그룹 수치 일괄 감소
+  - 중앙 아랫부분 ⊖ 버튼들 (-1, -5, -10) 클릭 시: 위쪽 그룹 수치 일괄 감소 / 아래쪽 그룹 수치 일괄 증가
+- **동적 기준선**: 화면 내 기입된 모든 입력 필드의 판별 결과가 합격(초록색)일 경우 전체적으로 통과되었음을 알리기 위해 중앙 마진 기준선 영역 자체도 초록색 점등 효과가 나타납니다. 만약 하나라도 빨간색이면 붉은색 경고등 형태로 나타납니다.
+- **칸 단위 확장식 UI**: ⊕ 기호를 클릭하여 그룹 내에 입력값을 기입할 열을 언제든 4칸씩 새로 확장할 수 있습니다.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 실행 방법
+```bash
+# 종속성 패키지 설치
+npm install
 
-### `npm test`
+# 로컬 개발 서버 실행 (localhost:3000)
+npm start
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 기술 스택 및 디자인
+- React
+- Vanilla CSS를 사용해 최고급 모바일 앱 느낌의 Glassmorphism(유리 질감) 및 트렌디한 다크스킨 UI를 구성했습니다.
