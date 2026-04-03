@@ -1,0 +1,308 @@
+/* 전체 레이아웃 */
+.page-container {
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Page 1 (설정) */
+.page1-container {
+  justify-content: center;
+}
+
+.glass-panel {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 24px;
+  padding: 40px 30px;
+  text-align: center;
+  width: 100%;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.title {
+  margin: 0 0 10px 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.subtitle {
+  margin: 0 0 30px 0;
+  font-size: 1rem;
+  color: var(--text-dim);
+}
+
+.margin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.big-input {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+  padding: 20px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.big-input:focus {
+  border-color: var(--accent-color);
+}
+
+.primary-btn {
+  background: var(--accent-color);
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 18px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+}
+
+/* Page 2 (계산기) */
+.page2-container {
+  padding: 15px;
+  padding-bottom: 50px; /* 스크롤 여유 */
+}
+
+.header-nav {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.back-btn {
+  background: transparent;
+  color: var(--text-dim);
+  font-size: 1rem;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.back-btn .arrow {
+  font-size: 1.2rem;
+}
+
+.group-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.top-group {
+  margin-bottom: 30px;
+}
+
+.bottom-group {
+  margin-top: 30px;
+}
+
+.section-group {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  padding: 15px;
+}
+
+.section-header h3 {
+  margin: 0 0 15px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.rows-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.input-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.input-cell {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-cell input {
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  background: var(--bg-color);
+  border: 1px solid var(--text-dim);
+  border-radius: 8px;
+  color: white;
+  text-align: center;
+  font-size: 1.1rem;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.input-cell input:focus {
+  border-color: var(--accent-color);
+}
+
+.remainder-display {
+  margin-top: 8px;
+  width: 80%;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 700;
+  border-bottom: 2px solid var(--text-dim);
+  padding-bottom: 4px;
+  min-height: 24px; /* 빈 공간 유지 */
+}
+
+.empty-line {
+  display: inline-block;
+  width: 100%;
+  height: 2px;
+}
+
+.status-success {
+  color: var(--color-success);
+  border-bottom-color: var(--color-success);
+}
+
+.status-error {
+  color: var(--color-error);
+  border-bottom-color: var(--color-error);
+}
+
+.add-btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.icon-btn {
+  background: transparent;
+  color: var(--text-dim);
+  font-size: 1.8rem;
+  padding: 5px;
+}
+
+/* 중앙 통제 영역 */
+.central-control {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 10px 0;
+  transition: all 0.3s;
+}
+
+.control-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ref-label {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.ref-input {
+  width: 70px;
+  height: 60px;
+  background: transparent;
+  border: 2px solid var(--text-dim);
+  border-radius: 12px;
+  color: white;
+  font-size: 1.5rem;
+  text-align: center;
+  outline: none;
+  transition: all 0.3s;
+}
+
+.all-passed .ref-input {
+  border-color: var(--color-success);
+}
+
+.has-error .ref-input {
+  border-color: var(--color-error);
+}
+
+.control-divider {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 60px;
+}
+
+.divider-line {
+  width: 100%;
+  height: 2px;
+  background: var(--text-dim);
+  transition: background 0.3s;
+}
+
+.all-passed .divider-line {
+  background: var(--color-success);
+  box-shadow: 0 0 10px var(--color-success);
+}
+
+.has-error .divider-line {
+  background: var(--color-error);
+  box-shadow: 0 0 10px var(--color-error);
+}
+
+.control-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.action-row {
+  display: flex;
+  gap: 8px;
+}
+
+.action-row button {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 0.9rem;
+  padding: 8px 12px;
+  border-radius: 20px;
+  min-width: 50px;
+}
+
+.top-actions button {
+  /* 상단 액션 스타일 (선택적 커스텀) */
+}
+
+.bottom-actions button {
+  /* 하단 액션 스타일 (선택적 커스텀) */
+}
+
+/* Chrome, Safari, Edge, Opera number input 화살표 제거 */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox number input 화살표 제거 */
+input[type=number] {
+  -moz-appearance: textfield;
+}
