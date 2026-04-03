@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/tile-calculator/static/css/main.eb4886c8.css",
-    "main.js": "/tile-calculator/static/js/main.0573da88.js",
+    "main.js": "/tile-calculator/static/js/main.44318e41.js",
     "static/js/453.c03c7cbe.chunk.js": "/tile-calculator/static/js/453.c03c7cbe.chunk.js",
     "index.html": "/tile-calculator/index.html",
     "main.eb4886c8.css.map": "/tile-calculator/static/css/main.eb4886c8.css.map",
-    "main.0573da88.js.map": "/tile-calculator/static/js/main.0573da88.js.map",
+    "main.44318e41.js.map": "/tile-calculator/static/js/main.44318e41.js.map",
     "453.c03c7cbe.chunk.js.map": "/tile-calculator/static/js/453.c03c7cbe.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.eb4886c8.css",
-    "static/js/main.0573da88.js"
+    "static/js/main.44318e41.js"
   ]
 }
