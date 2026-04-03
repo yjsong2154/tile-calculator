@@ -54,11 +54,16 @@ const Page2 = ({ minMargin, onBack }) => {
     const numVal = Number(val);
     const refVal = Number(reference);
     
+    let result;
     if (isReverse) {
       const rem = numVal % refVal;
-      return rem === 0 ? 0 : refVal - rem;
+      result = rem === 0 ? 0 : refVal - rem;
+    } else {
+      result = numVal % refVal;
     }
-    return numVal % refVal;
+    
+    // 부동소수점 오차 보정을 위해 소수점 4자리에서 반올림
+    return parseFloat(result.toFixed(4));
   };
 
   // 색상 판별 클래스 (나머지가 minMargin보다 '크면' success, '작거나 같으면' error)
@@ -117,6 +122,7 @@ const Page2 = ({ minMargin, onBack }) => {
               <div className="input-cell" key={`${title}-${actualIndex}`}>
                 <input 
                   type="number" 
+                  step="any"
                   value={val} 
                   onChange={(e) => handleInputChange(setter, actualIndex, e.target.value, arr)}
                   placeholder=""
@@ -156,7 +162,7 @@ const Page2 = ({ minMargin, onBack }) => {
 
       {/* 상단 그룹 */}
       <div className="group-wrapper top-group">
-        {renderInputRow(topForward, setTopForward, '정방향', false)}
+        {renderInputRow(topForward, setTopForward, '거실쪽', false)}
         {renderInputRow(topReverse, setTopReverse, 'Reverse', true)}
       </div>
 
@@ -166,6 +172,7 @@ const Page2 = ({ minMargin, onBack }) => {
           <span className="ref-label">기준</span>
           <input 
             type="number" 
+            step="any"
             className="ref-input" 
             value={reference} 
             onChange={(e) => setReference(e.target.value)} 
@@ -195,7 +202,7 @@ const Page2 = ({ minMargin, onBack }) => {
 
       {/* 하단 그룹 */}
       <div className="group-wrapper bottom-group">
-        {renderInputRow(bottomForward, setBottomForward, '정방향', false)}
+        {renderInputRow(bottomForward, setBottomForward, '주방쪽', false)}
         {renderInputRow(bottomReverse, setBottomReverse, 'Reverse', true)}
       </div>
 
